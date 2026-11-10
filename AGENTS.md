@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## ISHTILE storefront architecture
+
+- Keep the marketplace as a TanStack Start app with reusable storefront UI in `src/components/` and file-based pages in `src/routes/`; this preserves route metadata and a shared shopping shell.
+- Keep catalog records in Lovable Cloud and tie every product to a brand; seed demo rows in the database, not page-load code, so the storefront is editable without code changes.
+- Keep customer profile fields in `public.profiles`; any future authorization roles belong only in a separate protected role table, never in profile fields or browser storage.
+- Keep payments unprocessed until a real payment provider is deliberately configured; checkout may collect a reviewable order only.
