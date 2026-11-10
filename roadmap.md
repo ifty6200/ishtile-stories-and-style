@@ -1,0 +1,4 @@
+- [ ] Build ISHTILE homepage, visual tokens, navigation, and footer from the uploaded design brief.
+- [ ] Add catalog, product, brand, collection, editorial, and informational routes with functional discovery controls.
+- [ ] Add cart, wishlist, customer account, newsletter, and checkout review flows; use Cloud for persistence/auth where available, with no fake payment processing.
+- [ ] Verify routes, storefront interactions, mobile rendering, tests, preview errors, and commit the finished changes.
