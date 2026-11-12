@@ -40,17 +40,5 @@ function CollectionPage() {
         <ArrowUpRight className="collection-tile-arrow" size={17}/>
       </Link>)}
     </section>
-    <footer className="collection-footer">
-      <div className="collection-footer-top">
-        <Link to="/" className="collection-footer-wordmark">ISHTILE<span>✦</span></Link>
-        <p>Stories, style and a world beyond labels.</p>
-        <Link to="/shop" className="collection-footer-shop">Explore the shop <ArrowRight size={15}/></Link>
-      </div>
-      <div className="collection-footer-bottom">
-        <span>© {new Date().getFullYear()} ISHTILE / STORIES AND STYLE</span>
-        <nav aria-label="Footer navigation"><Link to="/shop">Shop</Link><Link to="/editorial">Editorial</Link><Link to="/collection">Collection</Link></nav>
-        <span>DISCOVER BEYOND LABELS. ✦</span>
-      </div>
-    </footer>
-  </main>;
+    <footer className="site-footer"><div className="footer-top"><div className="footer-brand"><Link className="wordmark" to="/"><span>ISHTILE</span><span>✦</span></Link><p>Different brands.<br/>One universe.</p><span className="footer-tag">DISCOVER BEYOND LABELS.</span></div><div className="footer-col"><h4>EXPLORE</h4><Link to="/shop">Shop all</Link><Link to="/#brands">Our brands</Link><Link to="/collection">Collections</Link><Link to="/editorial">Editorial</Link></div><div className="footer-col"><h4>INFORMATION</h4><Link to="/discover/page/about">About ISHTILE</Link><Link to="/discover/page/contact">Contact</Link><Link to="/discover/page/shipping-returns">Shipping &amp; returns</Link><Link to="/discover/page/faq">FAQ</Link></div><div className="footer-col"><h4>FOLLOW ALONG</h4><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={13}/></a><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook <ArrowUpRight size={13}/></a><a href="https://pinterest.com" target="_blank" rel="noreferrer">Pinterest <ArrowUpRight size={13}/></a><a href="https://tiktok.com" target="_blank" rel="noreferrer">TikTok <ArrowUpRight size={13}/></a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} ISHTILE. ALL RIGHTS RESERVED.</span><span>MADE FOR THE CURIOUS <span className="star-mark">✦</span></span><a href="#top">BACK TO TOP ↑</a></div></footer>  </main>;
 }
