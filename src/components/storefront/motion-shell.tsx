@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -35,9 +35,9 @@ const revealTargets = [
   ".story-content",
 ].join(",");
 
-export function MotionShell({ children }: { children: React.ReactNode }) {
+export function MotionShell({ children }: { children: ReactNode }) {
   const scope = useRef<HTMLDivElement>(null);
-  const pathname = useLocation({ select: (location) => location.location.pathname });
+  const pathname = useLocation({ select: (location) => location.pathname });
 
   useGSAP(
     () => {
