@@ -10,7 +10,7 @@ export function SiteHeader({ onCartClick }: { onCartClick:()=>void }) {
     { label: "Shop", href: "/shop" },
     { label: "Brands", href: "/#brands" },
     { label: "Editorial", href: "/editorial" },
-    { label: "Culture", href: "/#collections" },
+    { label: "Collection", href: "/collection" },
     { label: "About", href: "/#about" },
   ];
   return <>
