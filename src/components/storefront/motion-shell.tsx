@@ -105,11 +105,14 @@ export function MotionShell({ children }: { children: ReactNode }) {
         );
       });
 
-
       ScrollTrigger.refresh();
     },
     { scope, dependencies: [pathname], revertOnUpdate: true },
   );
 
-  return <div ref={scope} className="motion-shell">{children}</div>;
+  return (
+    <div ref={scope} className="motion-shell">
+      {children}
+    </div>
+  );
 }
