@@ -64,6 +64,15 @@ export function MotionShell({ children }: { children: ReactNode }) {
 
         gsap.registerPlugin(ScrollTrigger);
         const context = gsap.context(() => {
+          const sharedHeader = root.querySelector<HTMLElement>(".site-header");
+          if (sharedHeader) {
+            gsap.fromTo(
+              sharedHeader,
+              { autoAlpha: 0, y: -28 },
+              { autoAlpha: 1, y: 0, duration: 0.72, ease: "power3.out", clearProps: "transform" },
+            );
+          }
+
           const heroItems = root.querySelectorAll(
             ".hero-copy .eyebrow, .hero-copy h1, .hero-tagline, .hero-circle, .hero-side-note, .hero-index",
           );
