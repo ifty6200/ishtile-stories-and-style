@@ -16,7 +16,6 @@ const stories=[
 ];
 function EditorialPage(){
  return <main className="editorial-page">
-r>
   <section className="editorial-hero">
    <div className="editorial-hero-copy"><p className="eyebrow">THE ISHTILE JOURNAL</p><h1>Editorial.</h1><p>Fashion, culture and<br/>beyond.</p><a href="#stories">Explore Articles <ArrowRight size={16}/></a></div>
    <div className="editorial-hero-image"><img src={photo("photo-1539570515001-5f6c3c3f7b4d",1800)} alt="Fashion editorial campaign in vivid blue"/></div>
