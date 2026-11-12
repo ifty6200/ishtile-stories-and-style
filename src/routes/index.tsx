@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Heart, Menu, Minus, Plus, Search, ShoppingBag, Sparkle, Star, Trash2, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Heart, Minus, Plus, Search, ShoppingBag, Sparkle, Star, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -50,7 +50,6 @@ function HomePage() {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [activeProduct, setActiveProduct] = useState<(typeof products)[number] | null>(null);
   const [selectedSize, setSelectedSize] = useState("M");
@@ -90,20 +89,6 @@ function HomePage() {
   };
   const money = (n: number) => `৳${n.toLocaleString("en-BD")}`;
   return <main className="ishtile">
-    <div className="announcement"><span>DISCOVER BEYOND LABELS.</span><span className="announcement-center">FREE DELIVERY ON ORDERS OVER ৳5,000</span><span>EST. FOR THE CURIOUS <StarMark /></span></div>
-    <header className="site-header">
-      <a className="wordmark" href="#top" aria-label="ISHTILE home">ISHTILE<span>✦</span></a>
-      <nav className="desktop-nav" aria-label="Main navigation">
-        <a href="#shop">Shop</a><a href="#brands">Brands</a><a href="/editorial">Editorial</a><a href="#collections">Culture</a><a href="#about">About</a>
-      </nav>
-      <div className="header-actions">
-        <button aria-label="Search" onClick={() => setSearchOpen(true)}><Search size={18}/></button>
-        <a aria-label="Wishlist" href="#shop" className="icon-with-count"><Heart size={18}/>{wishlist.length > 0 && <i>{wishlist.length}</i>}</a>
-        <button aria-label="Shopping bag" onClick={() => setCartOpen(true)} className="icon-with-count"><ShoppingBag size={19}/>{count > 0 && <i>{count}</i>}</button>
-        <button className="mobile-menu-toggle" aria-label="Open menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X/> : <Menu/>}</button>
-      </div>
-    </header>
-    {menuOpen && <div className="mobile-nav">{["Shop","Brands","Editorial","Culture","About"].map((x,i)=><a key={x} href={["#shop","#brands","/editorial","#collections","#about"][i]} onClick={()=>setMenuOpen(false)}>{x}<ArrowUpRight size={16}/></a>)}</div>}
     {searchOpen && <div className="overlay" onMouseDown={e=>{if(e.target===e.currentTarget)setSearchOpen(false)}}><section className="search-panel"><div className="panel-top"><span>SEARCH ISHTILE</span><button aria-label="Close search" onClick={()=>setSearchOpen(false)}><X/></button></div><div className="search-input"><Search/><input autoFocus placeholder="What are you looking for?" value={query} onChange={e=>setQuery(e.target.value)}/></div><p className="eyebrow">POPULAR RIGHT NOW</p><div className="search-suggestions">{["Oversized tee","New arrivals","Accessories","PILGRIM"].map(x=><button key={x} onClick={()=>setQuery(x)}>{x}<ArrowUpRight size={14}/></button>)}</div><a className="text-link" href="#shop" onClick={()=>setSearchOpen(false)}>VIEW MATCHING PRODUCTS <ArrowRight size={14}/></a></section></div>}
     <section className="hero film-grain" id="top">
       <div className="hero-photo" />
