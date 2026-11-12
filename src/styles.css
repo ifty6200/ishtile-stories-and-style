@@ -338,3 +338,39 @@
 .collection-page{margin-top:0}
 .collection-hero{border-radius:0 0 4px 4px}
 @media(max-width:640px){.site-header.collection-header{height:64px;padding-left:5vw;padding-right:5vw}.site-header.collection-header .wordmark{color:#f5f0e8}}
+
+
+/* Collection: transparent, sticky header overlays the hero without obscuring it */
+.site-header.collection-header{
+  position:sticky!important;top:0!important;z-index:60!important;
+  margin-bottom:-76px!important;height:76px!important;
+  background:linear-gradient(180deg,rgba(5,5,5,.72),rgba(5,5,5,.2))!important;
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+  border-bottom:1px solid rgba(255,255,255,.13)!important;
+  color:#f5f0e8!important;
+}
+.site-header.collection-header .wordmark,
+.site-header.collection-header .desktop-nav a,
+.site-header.collection-header .header-actions button,
+.site-header.collection-header .header-actions>a{color:#f5f0e8!important}
+.site-header.collection-header .desktop-nav a:after{background:#f5f0e8}
+.site-header.collection-header .header-actions button{background:transparent}
+.site-header.collection-header+.collection-page{margin-top:0}
+.collection-page{margin-top:0!important}
+.collection-hero{border-radius:0 0 4px 4px}
+.collection-footer{display:block!important;background:#111!important;color:#f2ede4!important;margin-top:24px;padding:38px 4.5% 20px!important}
+.collection-footer-top{display:flex;align-items:center;justify-content:space-between;gap:22px;padding-bottom:34px;border-bottom:1px solid #ffffff30}
+.collection-footer-wordmark{font-family:"Satoshi",sans-serif;font-size:28px;font-weight:900;letter-spacing:-.075em}
+.collection-footer-wordmark span{font-size:22px;margin-left:4px}
+.collection-footer-top p{font-size:12px;color:#c8c2b8;margin:0}
+.collection-footer-shop{display:inline-flex;align-items:center;gap:9px;font-size:11px;border-bottom:1px solid #f2ede4;padding-bottom:7px}
+.collection-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-top:18px;font-size:8px;letter-spacing:.12em;color:#b9b2a8}
+.collection-footer-bottom nav{display:flex;gap:22px}
+.collection-footer-bottom nav a{color:#f2ede4}
+@media(max-width:640px){
+ .site-header.collection-header{height:64px!important;margin-bottom:-64px!important}
+ .collection-footer{padding:28px 5% 18px!important}
+ .collection-footer-top{align-items:flex-start;flex-direction:column;gap:13px;padding-bottom:24px}
+ .collection-footer-bottom{align-items:flex-start;flex-direction:column;gap:13px}
+ .collection-footer-bottom nav{gap:18px}
+}
