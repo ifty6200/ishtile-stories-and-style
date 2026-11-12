@@ -40,6 +40,17 @@ function CollectionPage() {
         <ArrowUpRight className="collection-tile-arrow" size={17}/>
       </Link>)}
     </section>
-    <div className="collection-footer"><span>ISHTILE / STORIES AND STYLE</span><span>DISCOVER BEYOND LABELS. ✦</span></div>
+    <footer className="collection-footer">
+      <div className="collection-footer-top">
+        <Link to="/" className="collection-footer-wordmark">ISHTILE<span>✦</span></Link>
+        <p>Stories, style and a world beyond labels.</p>
+        <Link to="/shop" className="collection-footer-shop">Explore the shop <ArrowRight size={15}/></Link>
+      </div>
+      <div className="collection-footer-bottom">
+        <span>© {new Date().getFullYear()} ISHTILE / STORIES AND STYLE</span>
+        <nav aria-label="Footer navigation"><Link to="/shop">Shop</Link><Link to="/editorial">Editorial</Link><Link to="/collection">Collection</Link></nav>
+        <span>DISCOVER BEYOND LABELS. ✦</span>
+      </div>
+    </footer>
   </main>;
 }
