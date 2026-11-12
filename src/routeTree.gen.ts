@@ -53,6 +53,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/products/$slug': typeof ProductRoute
+  '/editorial': typeof EditorialRoute
+  '/discover/$type/$slug': typeof DiscoverRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
