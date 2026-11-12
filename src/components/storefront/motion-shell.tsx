@@ -27,12 +27,24 @@ const revealTargets = [
   ".editorial-story-card",
   ".product-main-image",
   ".product-information",
+  ".product-breadcrumb",
+  ".product-option",
+  ".product-action-row",
+  ".product-service-notes",
+  ".product-description-block",
+  ".product-back-link",
   ".similar-products .section-heading",
   ".similar-card",
   ".discover-hero-copy",
   ".discover-hero-image",
   ".discover-product-card",
+  ".discover-products .section-heading",
   ".story-content",
+  ".editorial-page-footer",
+  ".site-footer",
+  ".footer-top",
+  ".footer-bottom",
+  ".newsletter form",
 ].join(",");
 
 export function MotionShell({ children }: { children: ReactNode }) {
@@ -58,6 +70,17 @@ export function MotionShell({ children }: { children: ReactNode }) {
           heroItems,
           { autoAlpha: 0, y: 22 },
           { autoAlpha: 1, y: 0, duration: 0.85, stagger: 0.09, ease: "power3.out", delay: 0.12 },
+        );
+      }
+
+      const heroImage = root.querySelector<HTMLElement>(
+        ".hero-photo, .editorial-hero-image img, .discover-hero-image img, .product-main-image img",
+      );
+      if (heroImage) {
+        gsap.fromTo(
+          heroImage,
+          { scale: 1.055 },
+          { scale: 1, duration: 1.35, ease: "power2.out", clearProps: "transform" },
         );
       }
 
