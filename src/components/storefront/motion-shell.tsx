@@ -82,32 +82,6 @@ export function MotionShell({ children }: { children: ReactNode }) {
         );
       });
 
-      // Delegated micro-interactions keep dynamically rendered cards and controls covered.
-      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      if (canHover) {
-        const onPointerOver = (event: PointerEvent) => {
-          const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(
-            ".product-card, .featured-product-card, .similar-card, .discover-product-card, .brand-card, .collection-card, .category-card, .editorial-story-card, .article-card, .hero-circle, .product-add-button, .header-actions button",
-          );
-          if (target && root.contains(target)) {
-            gsap.to(target, { y: -3, duration: 0.22, ease: "power2.out", overwrite: "auto" });
-          }
-        };
-        const onPointerOut = (event: PointerEvent) => {
-          const target = (event.target as HTMLElement | null)?.closest<HTMLElement>(
-            ".product-card, .featured-product-card, .similar-card, .discover-product-card, .brand-card, .collection-card, .category-card, .editorial-story-card, .article-card, .hero-circle, .product-add-button, .header-actions button",
-          );
-          if (target && root.contains(target)) {
-            gsap.to(target, { y: 0, duration: 0.28, ease: "power2.out", overwrite: "auto" });
-          }
-        };
-        root.addEventListener("pointerover", onPointerOver);
-        root.addEventListener("pointerout", onPointerOut);
-        return () => {
-          root.removeEventListener("pointerover", onPointerOver);
-          root.removeEventListener("pointerout", onPointerOut);
-        };
-      }
 
       ScrollTrigger.refresh();
     },
