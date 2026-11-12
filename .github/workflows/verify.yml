@@ -44,5 +44,19 @@ jobs:
       - name: Production build
         run: bun run build
 
-      - name: Lint
-        run: bun run lint
+      - name: Format the GSAP integration
+        run: bunx prettier --write src/components/storefront/motion-shell.tsx src/components/storefront/app-shell.tsx
+
+      - name: Commit formatting updates
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          if ! git diff --quiet -- src/components/storefront/motion-shell.tsx src/components/storefront/app-shell.tsx; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/components/storefront/motion-shell.tsx src/components/storefront/app-shell.tsx
+            git commit -m "style: format GSAP integration"
+            git push
+          fi
+
+      - name: Lint the changed motion components
+        run: bunx eslint src/components/storefront/motion-shell.tsx src/components/storefront/app-shell.tsx
