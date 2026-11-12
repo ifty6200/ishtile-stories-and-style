@@ -24,3 +24,14 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+
+## Motion system
+
+ISHTILE uses GSAP and `@gsap/react` for restrained editorial motion across all routes. The shared `MotionShell` registers ScrollTrigger once, scopes animations to the active route, and reverts timelines and triggers when the route changes or the component unmounts.
+
+- Add a meaningful selector to `revealTargets` in `src/components/storefront/motion-shell.tsx` to opt a component into a scroll reveal.
+- Keep reveals on component boundaries (cards, hero panels, section introductions), not every text node.
+- Hover micro-interactions are delegated from the shared shell so dynamically rendered cards are included.
+- The system respects `prefers-reduced-motion: reduce`; decorative motion is skipped and content remains visible.
+- Mobile reveals use shorter travel distances, while hover motion is only enabled on devices with a fine pointer.
