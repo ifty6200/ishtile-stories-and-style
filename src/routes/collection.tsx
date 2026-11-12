@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({ meta: [
@@ -20,6 +23,16 @@ const tiles = [
 ];
 
 function CollectionPage() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+  const submitNewsletter = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast.error("Enter a valid email address."); return; }
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: email.trim().toLowerCase() });
+    if (error && error.code !== "23505") { toast.error("We could not save your subscription. Please try again."); return; }
+    setSubscribed(true);
+    toast.success("You are on the list. Welcome to ISHTILE.");
+  };
   return <main className="collection-page">
     <section className="collection-hero">
       <div className="collection-hero-photo" role="img" aria-label="Black and white editorial portrait of a male model wearing sunglasses"/>
@@ -39,6 +52,16 @@ function CollectionPage() {
         <span className="collection-tile-index">0{i+1}</span>
         <ArrowUpRight className="collection-tile-arrow" size={17}/>
       </Link>)}
+    </section>
+    <section className="newsletter collection-newsletter">
+      <div className="newsletter-star"><span className="star-mark">✦</span></div>
+      <div><p className="eyebrow">A GOOD THING, OCCASIONALLY.</p><h2>Stay in the loop<span>.</span></h2><p>Get the latest drops, stories and things worth knowing.</p></div>
+      <form onSubmit={submitNewsletter}>
+        <label className="sr-only" htmlFor="collection-newsletter-email">Your email address</label>
+        <input id="collection-newsletter-email" type="email" required placeholder="Your email address" value={email} onChange={e=>setEmail(e.target.value)}/>
+        <button type="submit" disabled={subscribed}>{subscribed?<><Check size={15}/> SUBSCRIBED</>:"SUBSCRIBE"} <ArrowRight size={15}/></button>
+        <small>By subscribing, you agree to receive ISHTILE updates. Unsubscribe anytime.</small>
+      </form>
     </section>
     <footer className="site-footer"><div className="footer-top"><div className="footer-brand"><Link className="wordmark" to="/"><span>ISHTILE</span><span>✦</span></Link><p>Different brands.<br/>One universe.</p><span className="footer-tag">DISCOVER BEYOND LABELS.</span></div><div className="footer-col"><h4>EXPLORE</h4><Link to="/shop">Shop all</Link><Link to="/#brands">Our brands</Link><Link to="/collection">Collections</Link><Link to="/editorial">Editorial</Link></div><div className="footer-col"><h4>INFORMATION</h4><Link to="/discover/page/about">About ISHTILE</Link><Link to="/discover/page/contact">Contact</Link><Link to="/discover/page/shipping-returns">Shipping &amp; returns</Link><Link to="/discover/page/faq">FAQ</Link></div><div className="footer-col"><h4>FOLLOW ALONG</h4><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={13}/></a><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook <ArrowUpRight size={13}/></a><a href="https://pinterest.com" target="_blank" rel="noreferrer">Pinterest <ArrowUpRight size={13}/></a><a href="https://tiktok.com" target="_blank" rel="noreferrer">TikTok <ArrowUpRight size={13}/></a></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} ISHTILE. ALL RIGHTS RESERVED.</span><span>MADE FOR THE CURIOUS <span className="star-mark">✦</span></span><a href="#top">BACK TO TOP ↑</a></div></footer>  </main>;
 }
