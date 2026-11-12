@@ -29,7 +29,7 @@ export function SiteHeader() {
         <div className="header-actions">
           <a aria-label="Search products" href="/shop"><Search size={18}/></a>
           <a aria-label="Wishlist" href="/#shop"><Heart size={18}/></a>
-          <a aria-label="Shopping bag" href="/#shop"><ShoppingBag size={19}/></a>
+          <a aria-label="Shopping bag" href="/cart"><ShoppingBag size={19}/></a>
           <button className="mobile-menu-toggle" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen(open => !open)}>
             {menuOpen ? <X/> : <Menu/>}
           </button>
