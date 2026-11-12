@@ -7,7 +7,7 @@ export function SiteHeader() {
   const isHome = pathname === "/";
   const [menuOpen, setMenuOpen] = useState(false);
   const links = [
-    { label: "Shop", href: "/#shop" },
+    { label: "Shop", href: "/shop" },
     { label: "Brands", href: "/#brands" },
     { label: "Editorial", href: "/editorial" },
     { label: "Culture", href: "/#collections" },
@@ -27,7 +27,7 @@ export function SiteHeader() {
           {links.map(link => <a key={link.label} href={link.href}>{link.label}</a>)}
         </nav>
         <div className="header-actions">
-          <a aria-label="Search products" href="/#shop"><Search size={18}/></a>
+          <a aria-label="Search products" href="/shop"><Search size={18}/></a>
           <a aria-label="Wishlist" href="/#shop"><Heart size={18}/></a>
           <a aria-label="Shopping bag" href="/#shop"><ShoppingBag size={19}/></a>
           <button className="mobile-menu-toggle" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen(open => !open)}>
