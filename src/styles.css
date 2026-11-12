@@ -45,9 +45,9 @@
 
 /* Transparent, persistent navigation + full-viewport editorial hero */
 .ishtile{overflow-x:clip;overflow-y:visible}
-.site-header{position:sticky;top:0;z-index:60;margin-top:-28px;margin-bottom:-76px;background:rgba(15,15,15,.14);color:#f5f0e8;border-bottom:1px solid rgba(255,255,255,.2);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);transition:background .25s,border-color .25s}
-.site-header .wordmark,.site-header .desktop-nav a,.site-header .header-actions button,.site-header .header-actions>a{color:#f8f5ef}
-.site-header .desktop-nav a:after{background:var(--lime)}
+.site-header.home-overlay{position:sticky;top:0;z-index:60;margin-top:-28px;margin-bottom:-76px;background:rgba(15,15,15,.14);color:#f5f0e8;border-bottom:1px solid rgba(255,255,255,.2);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);transition:background .25s,border-color .25s}
+.site-header.home-overlay .wordmark,.site-header.home-overlay .desktop-nav a,.site-header.home-overlay .header-actions button,.site-header.home-overlay .header-actions>a{color:#f8f5ef}
+.site-header.home-overlay .desktop-nav a:after{background:var(--lime)}
 .site-header .header-actions button svg,.site-header .header-actions>a svg{stroke:currentColor}
 .hero{height:calc(100svh - 28px);min-height:620px;max-height:none;padding-top:clamp(90px,13vh,150px);padding-bottom:clamp(80px,10vh,120px);border-radius:5px 5px 0 0;clip-path:polygon(0 0,100% 0,100% 96%,97.5% 100%,0 100%)}
 .hero-photo{background-position:center 34%}
@@ -56,7 +56,7 @@
 .mobile-nav a{border-color:#ffffff30}
 @media(max-width:900px){.hero{height:calc(100svh - 28px);min-height:600px;padding-top:clamp(105px,15vh,145px);padding-bottom:95px}}
 @media(max-width:640px){
-.site-header{height:64px;margin-top:-24px;margin-bottom:-64px;padding:0 5vw;background:rgba(15,15,15,.16);border-bottom-color:rgba(255,255,255,.18)}
+.site-header{height:64px;padding:0 5vw}.site-header.home-overlay{margin-top:-24px;margin-bottom:-64px;background:rgba(15,15,15,.16);border-bottom-color:rgba(255,255,255,.18)}
 .hero{height:calc(100svh - 24px);min-height:560px;padding:105px 6vw 105px;align-items:flex-start;clip-path:polygon(0 0,100% 0,100% 97%,95% 100%,0 100%)}
 .hero-photo{background-position:61% center}
 .hero-copy{margin-top:25px}
