@@ -406,3 +406,25 @@
   .collection-page>.site-footer{padding:48px 6vw 18px!important}
   .collection-page>.site-footer .footer-top{padding-bottom:40px}
 }
+
+
+/* Collection page bottom rhythm: cards, homepage newsletter, then footer */
+.collection-page>.collection-tiles{
+  padding-bottom:0!important;
+  margin-bottom:0!important;
+}
+.collection-page>.collection-newsletter{
+  width:100%!important;
+  margin:32px 0 0!important;
+  border-radius:0!important;
+  position:relative;
+  z-index:1;
+}
+.collection-page>.site-footer{
+  width:100%!important;
+  margin:0!important;
+  border-radius:0!important;
+}
+@media(max-width:640px){
+  .collection-page>.collection-newsletter{margin-top:22px!important}
+}
