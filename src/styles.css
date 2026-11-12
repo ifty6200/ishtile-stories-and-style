@@ -469,3 +469,25 @@
 .collections-section .collection-card{box-shadow:0 8px 28px rgba(0,0,0,.24)}
 /* Brand showcase is the final homepage content section, immediately before footer */
 .brands-section{margin-bottom:0}
+
+
+/* Keep the Considered Essentials image cards slim and consistent on mobile */
+@media(max-width:640px){
+  .brands-section .brands-showcase{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+    align-items:stretch;
+  }
+  .brands-section .brand-card{
+    width:100%;
+    min-height:0!important;
+    height:auto;
+    aspect-ratio:2 / 3;
+  }
+  .brands-section .brand-card:nth-child(2){transform:none!important}
+  .brands-section .brand-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+}
