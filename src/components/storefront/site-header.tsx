@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Heart, Menu, Search, ShoppingBag, X } from "lucide-react";
 
 export function SiteHeader() {
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
   const [menuOpen, setMenuOpen] = useState(false);
   const links = [
     { label: "Shop", href: "/#shop" },
@@ -19,7 +21,7 @@ export function SiteHeader() {
         <span className="announcement-center">FREE DELIVERY ON ORDERS OVER ৳5,000</span>
         <span>EST. FOR THE CURIOUS <span className="star-mark">✦</span></span>
       </div>
-      <header className="site-header" aria-label="ISHTILE main header">
+      <header className={`site-header${isHome ? " home-overlay" : ""}`} aria-label="ISHTILE main header">
         <Link className="wordmark" to="/" aria-label="ISHTILE home">ISHTILE<span>✦</span></Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map(link => <a key={link.label} href={link.href}>{link.label}</a>)}
