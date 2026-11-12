@@ -1,10 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { useLocation } from "@tanstack/react-router";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const revealTargets = [
   ".ecosystem-copy",
@@ -51,64 +46,79 @@ export function MotionShell({ children }: { children: ReactNode }) {
   const scope = useRef<HTMLDivElement>(null);
   const pathname = useLocation({ select: (location) => location.pathname });
 
-  useGSAP(
-    () => {
+  useEffect(() => {
+    let cancelled = false;
+    let revert: (() => void) | undefined;
+
+    async function animatePage() {
       const root = scope.current;
-      if (!root || typeof window === "undefined") return;
+      if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduceMotion) {
-        gsap.set(root.querySelectorAll(revealTargets), { clearProps: "all" });
-        return;
+      try {
+        // Load GSAP only in the browser so it never participates in server rendering.
+        const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+          import("gsap"),
+          import("gsap/ScrollTrigger"),
+        ]);
+        if (cancelled || !scope.current) return;
+
+        gsap.registerPlugin(ScrollTrigger);
+        const context = gsap.context(() => {
+          const heroItems = root.querySelectorAll(
+            ".hero-copy .eyebrow, .hero-copy h1, .hero-tagline, .hero-circle, .hero-side-note, .hero-index",
+          );
+          if (heroItems.length) {
+            gsap.fromTo(
+              heroItems,
+              { autoAlpha: 0, y: 20 },
+              { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "power3.out", delay: 0.1 },
+            );
+          }
+
+          const heroImage = root.querySelector<HTMLElement>(
+            ".hero-photo, .editorial-hero-image img, .discover-hero-image img, .product-main-image img",
+          );
+          if (heroImage) {
+            gsap.fromTo(
+              heroImage,
+              { scale: 1.045 },
+              { scale: 1, duration: 1.2, ease: "power2.out", clearProps: "transform" },
+            );
+          }
+
+          root.querySelectorAll<HTMLElement>(revealTargets).forEach((element, index) => {
+            gsap.fromTo(
+              element,
+              { autoAlpha: 0, y: window.innerWidth < 640 ? 12 : 22 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.7,
+                delay: (index % 4) * 0.04,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: element,
+                  start: "top 92%",
+                  once: true,
+                },
+              },
+            );
+          });
+        }, root);
+        revert = () => context.revert();
+        ScrollTrigger.refresh();
+      } catch (error) {
+        // Animation failures must never prevent the storefront from rendering.
+        console.warn("ISHTILE motion enhancement could not initialize:", error);
       }
+    }
 
-      const heroItems = root.querySelectorAll(
-        ".hero-copy .eyebrow, .hero-copy h1, .hero-tagline, .hero-circle, .hero-side-note, .hero-index",
-      );
-      if (heroItems.length) {
-        gsap.fromTo(
-          heroItems,
-          { autoAlpha: 0, y: 22 },
-          { autoAlpha: 1, y: 0, duration: 0.85, stagger: 0.09, ease: "power3.out", delay: 0.12 },
-        );
-      }
-
-      const heroImage = root.querySelector<HTMLElement>(
-        ".hero-photo, .editorial-hero-image img, .discover-hero-image img, .product-main-image img",
-      );
-      if (heroImage) {
-        gsap.fromTo(
-          heroImage,
-          { scale: 1.055 },
-          { scale: 1, duration: 1.35, ease: "power2.out", clearProps: "transform" },
-        );
-      }
-
-      const targets = gsap.utils.toArray<HTMLElement>(revealTargets, root);
-      targets.forEach((element, index) => {
-        gsap.fromTo(
-          element,
-          { autoAlpha: 0, y: window.innerWidth < 640 ? 14 : 24 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.72,
-            delay: Math.min((index % 4) * 0.045, 0.12),
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: element,
-              start: "top 91%",
-              once: true,
-              invalidateOnRefresh: true,
-            },
-          },
-        );
-      });
-
-      ScrollTrigger.refresh();
-    },
-    { scope, dependencies: [pathname], revertOnUpdate: true },
-  );
+    void animatePage();
+    return () => {
+      cancelled = true;
+      revert?.();
+    };
+  }, [pathname]);
 
   return (
     <div ref={scope} className="motion-shell">
