@@ -146,3 +146,6 @@
  .product-tab-content{height:76px;max-height:76px}
  .product-view .similar-products{padding-top:48px}
 }
+
+/* Shared navigation placement across every route */
+@media(max-width:640px){.mobile-nav{top:88px}}
