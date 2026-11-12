@@ -428,3 +428,44 @@
 @media(max-width:640px){
   .collection-page>.collection-newsletter{margin-top:22px!important}
 }
+
+
+/* Homepage collection chapter panel: vintage analogue-film treatment */
+.collections-section{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:#171614!important;
+  color:#f2ede4!important;
+}
+.collections-section:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.32;
+  background-image:
+    radial-gradient(ellipse at 18% 22%,rgba(255,255,255,.12),transparent 38%),
+    radial-gradient(ellipse at 82% 76%,rgba(190,160,115,.10),transparent 42%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 3px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.08) 0,rgba(0,0,0,.08) 1px,transparent 1px,transparent 4px);
+}
+.collections-section:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+  mix-blend-mode:soft-light;
+}
+.collections-section .section-heading,
+.collections-section .collection-grid{position:relative;z-index:1}
+.collections-section .section-heading .eyebrow,
+.collections-section .section-heading .section-intro{color:#c2b9aa}
+.collections-section .section-heading .text-link{color:#f2ede4}
+.collections-section .collection-card{box-shadow:0 8px 28px rgba(0,0,0,.24)}
+/* Brand showcase is the final homepage content section, immediately before footer */
+.brands-section{margin-bottom:0}
