@@ -17,25 +17,58 @@ const catalog = [
   { id:"cap",brand:"ISHTILE Essentials",name:"Structured Everyday Cap",price:1490,category:"Lifestyle",colour:"Black",material:"Cotton twill",fit:"Adjustable",description:"A clean, structured cap with a subtle signature. An easy finishing touch for everyday looks.",images:[photo("photo-1588850561407-ed78c282e89b"),photo("photo-1521369909029-2afed882baee"),photo("photo-1588850561407-ed78c282e89b")],lineup:"Essentials" },
 ];
 const money = (n:number) => "৳" + n.toLocaleString("en-BD");
+const swatches = [{name:"Black",hex:"#171717"},{name:"Off white",hex:"#eeeae2"},{name:"Blue",hex:"#6488ad"},{name:"Stone",hex:"#b9b8b3"}];
+
 function ProductPage() {
-  const {slug}=Route.useParams(); const navigate=useNavigate(); const product=catalog.find(p=>p.id===slug);
-  const [imageIndex,setImageIndex]=useState(0); const [size,setSize]=useState("M"); const [quantity,setQuantity]=useState(1); const [wish,setWish]=useState(false);
+  const {slug}=Route.useParams();
+  const navigate=useNavigate();
+  const product=catalog.find(p=>p.id===slug);
+  const [imageIndex,setImageIndex]=useState(0);
+  const [size,setSize]=useState("M");
+  const [colour,setColour]=useState(product?.colour ?? "Black");
+  const [quantity,setQuantity]=useState(1);
+  const [wish,setWish]=useState(false);
+  const [activeTab,setActiveTab]=useState("Details");
   const similar=useMemo(()=>product?catalog.filter(p=>p.id!==product.id&&(p.brand===product.brand||p.lineup===product.lineup||p.category===product.category)).slice(0,4):[],[product]);
-  const addToBag=()=>{if(!product)return;try{const stored=JSON.parse(localStorage.getItem("ishtile-cart-v2")||"[]") as {id:string;qty:number;size:string}[];const exists=stored.find(x=>x.id===product.id&&x.size===size);const next=exists?stored.map(x=>x.id===product.id&&x.size===size?{...x,qty:Math.min(99,x.qty+quantity)}:x):[...stored,{id:product.id,qty:quantity,size}];localStorage.setItem("ishtile-cart-v2",JSON.stringify(next));toast.success("Added to your bag");navigate({to:"/"});}catch{toast.error("Your bag could not be updated. Please try again.");}};
+  const addToBag=()=>{if(!product)return;try{const stored=JSON.parse(localStorage.getItem("ishtile-cart-v2")||"[]") as {id:string;qty:number;size:string;colour?:string}[];const exists=stored.find(x=>x.id===product.id&&x.size===size&&x.colour===colour);const next=exists?stored.map(x=>x.id===product.id&&x.size===size&&x.colour===colour?{...x,qty:Math.min(99,x.qty+quantity)}:x):[...stored,{id:product.id,qty:quantity,size,colour}];localStorage.setItem("ishtile-cart-v2",JSON.stringify(next));toast.success("Added to your bag");navigate({to:"/"});}catch{toast.error("Your bag could not be updated. Please try again.");}};
   if(!product)return <main className="product-not-found"><span className="eyebrow">THE ISHTILE EDIT</span><h1>This piece has moved on.</h1><p>We couldn't find that product. Explore the latest edit instead.</p><Link to="/">BACK TO THE STORE <ArrowRight size={15}/></Link></main>;
-  return <main className="product-page">
-    <div className="product-breadcrumb"><Link to="/">HOME</Link><span>/</span><Link to="/">SHOP</Link><span>/</span><span>{product.name.toUpperCase()}</span></div>
+
+  const tabContent = activeTab==="Details"
+    ? <><p>{product.description}</p><ul><li>{product.material}</li><li>{product.fit}</li><li>Machine wash cold</li></ul></>
+    : activeTab==="Size Guide"
+      ? <p>Choose your usual size for the intended fit. S · M · L · XL. For a more relaxed fit, consider sizing up.</p>
+      : <p>Delivery is available across Bangladesh. Eligible items can be returned in accordance with the ISHTILE returns policy. Orders are carefully packed before dispatch.</p>;
+
+  return <main className="product-page product-view">
+    <div className="product-breadcrumb"><Link to="/">SHOP</Link><span>/</span><Link to="/">{product.category}</Link><span>/</span><span>{product.name.toUpperCase()}</span></div>
     <div className="product-detail-layout">
-      <div className="product-gallery"><div className="product-thumbnails">{product.images.map((src,i)=><button key={src+i} className={imageIndex===i?"selected":""} onClick={()=>setImageIndex(i)} aria-label={"View image "+(i+1)}><img src={src.replace("w=1200","w=180")} alt=""/></button>)}</div><div className="product-main-image"><img src={product.images[imageIndex]} alt={product.name}/><span className="product-label">ISHTILE EDIT / 00{catalog.indexOf(product)+1}</span></div></div>
-      <section className="product-information"><span className="eyebrow">{product.brand}</span><h1>{product.name}</h1><div className="product-rating"><span>★★★★★</span><small>CURATED BY ISHTILE</small></div><strong className="product-detail-price">{money(product.price)}</strong><p className="product-description">{product.description}</p>
-        <div className="product-spec-row"><span>COLOUR</span><b>{product.colour}</b></div><div className="product-spec-row"><span>FIT</span><b>{product.fit}</b></div>
-        <div className="product-option"><div><span className="eyebrow">SELECT SIZE</span><button className="size-guide" onClick={()=>toast.info("Size guide: S (36), M (38), L (40), XL (42), XXL (44). Confirm measurements with the store before ordering.")}>SIZE GUIDE ↗</button></div><div className="size-options">{["S","M","L","XL","XXL"].map(s=><button key={s} className={size===s?"selected":""} onClick={()=>setSize(s)}>{s}</button>)}</div></div>
-        <div className="product-option"><span className="eyebrow">QUANTITY</span><div className="quantity-control"><button aria-label="Decrease quantity" onClick={()=>setQuantity(q=>Math.max(1,q-1))}><Minus size={13}/></button><span>{quantity}</span><button aria-label="Increase quantity" onClick={()=>setQuantity(q=>Math.min(10,q+1))}><Plus size={13}/></button></div></div>
-        <div className="product-action-row"><button className="product-add-button" onClick={addToBag}><ShoppingBag size={17}/> ADD TO BAG — {money(product.price*quantity)}</button><button className={wish?"product-wish-button saved":"product-wish-button"} aria-label="Save to wishlist" onClick={()=>setWish(!wish)}><Heart fill={wish?"currentColor":"none"}/></button></div>
-        <div className="product-service-notes"><p><Check size={15}/> Carefully selected independent labels</p><p><Check size={15}/> Easy returns on eligible items</p><p><Check size={15}/> Delivery across Bangladesh</p></div>
-        <div className="product-description-block"><h3>THE DETAILS</h3><p>{product.description}</p><div className="product-spec-row"><span>MATERIAL</span><b>{product.material}</b></div><div className="product-spec-row"><span>LINEUP</span><b>{product.lineup}</b></div><div className="product-spec-row"><span>SKU</span><b>ISH-{product.id.toUpperCase()}-001</b></div></div>
+      <div className="product-gallery">
+        <div className="product-thumbnails">{product.images.map((src,i)=><button key={src+i} className={imageIndex===i?"selected":""} onClick={()=>setImageIndex(i)} aria-label={"View image "+(i+1)}><img src={src.replace("w=1200","w=180")} alt=""/></button>)}</div>
+        <div className="product-main-image"><img src={product.images[imageIndex]} alt={product.name}/><span className="product-image-count">{String(imageIndex+1).padStart(2,"0")} / {String(product.images.length).padStart(2,"0")}</span></div>
+      </div>
+      <section className="product-information">
+        <div className="product-heading-line"><span className="eyebrow">{product.brand}</span><span className="product-category">{product.category} / {product.lineup}</span></div>
+        <h1>{product.name}</h1>
+        <strong className="product-detail-price">{money(product.price)}</strong>
+        <div className="product-description-scroll" tabIndex={0}><p>{product.description}</p></div>
+        <div className="product-choice-block">
+          <div className="product-choice-heading"><span>Colour</span><b>{colour}</b></div>
+          <div className="product-colour-options">{swatches.map(s=><button key={s.name} className={colour===s.name?"selected":""} style={{"--swatch":s.hex} as React.CSSProperties} onClick={()=>setColour(s.name)} aria-label={"Select "+s.name} title={s.name}/>)}</div>
+        </div>
+        <div className="product-choice-block product-size-block">
+          <div className="product-choice-heading"><span>Size</span><button className="size-guide" onClick={()=>setActiveTab("Size Guide")}>Size guide</button></div>
+          <div className="size-options">{["S","M","L","XL"].map(s=><button key={s} className={size===s?"selected":""} onClick={()=>setSize(s)}>{s}</button>)}</div>
+        </div>
+        <div className="product-action-row"><button className="product-add-button" onClick={addToBag}>ADD TO CART <span>{money(product.price*quantity)}</span></button><button className={wish?"product-wish-button saved":"product-wish-button"} aria-label="Save to wishlist" onClick={()=>setWish(!wish)}><Heart size={18} fill={wish?"currentColor":"none"}/></button></div>
+        <div className="product-quantity-row"><span>Quantity</span><div className="quantity-control"><button aria-label="Decrease quantity" onClick={()=>setQuantity(q=>Math.max(1,q-1))}><Minus size={12}/></button><span>{quantity}</span><button aria-label="Increase quantity" onClick={()=>setQuantity(q=>Math.min(10,q+1))}><Plus size={12}/></button></div></div>
       </section>
     </div>
+    <div className="product-service-strip"><div><span className="service-symbol">◉</span><span>Premium Fabric</span></div><div><span className="service-symbol">↻</span><span>Easy Returns</span></div><div><span className="service-symbol">⌂</span><span>Fast Delivery</span></div></div>
+    <section className="product-tabs-panel">
+      <div className="product-tabs" role="tablist" aria-label="Product information">{["Details","Size Guide","Shipping & Returns"].map(tab=><button key={tab} role="tab" aria-selected={activeTab===tab} className={activeTab===tab?"active":""} onClick={()=>setActiveTab(tab)}>{tab}</button>)}</div>
+      <div className="product-tab-content" role="tabpanel" key={activeTab}>{tabContent}</div>
+      <span className="product-tab-star" aria-hidden="true">✦</span>
+    </section>
     <section className="similar-products"><div className="section-heading"><div><p className="eyebrow">MORE TO DISCOVER</p><h2>More from <i>{product.lineup}.</i></h2><p className="section-intro">A few more pieces from this corner of the ISHTILE universe.</p></div><Link className="text-link" to="/">EXPLORE THE STORE <ArrowRight size={14}/></Link></div><div className="similar-grid">{(similar.length?similar:catalog.filter(p=>p.id!==product.id).slice(0,4)).map(p=><Link key={p.id} to="/products/$slug" params={{slug:p.id}} className="similar-card"><div><img src={p.images[0]} alt={p.name}/><span>DISCOVER PIECE <ArrowRight size={14}/></span></div><small>{p.brand}</small><h3>{p.name}</h3><b>{money(p.price)}</b></Link>)}</div></section>
     <div className="product-back-link"><Link to="/"><ArrowLeft size={15}/> BACK TO THE ISHTILE UNIVERSE</Link></div>
   </main>;
