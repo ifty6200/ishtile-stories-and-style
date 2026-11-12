@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronDown, Heart, Menu, Minus, Plus, Search, ShoppingBag, Sparkle, Star, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -79,9 +80,11 @@ function HomePage() {
     setCartOpen(true);
   };
   const toggleWish = (id: string) => setWishlist(old => old.includes(id) ? old.filter(x => x !== id) : [...old, id]);
-  const submitNewsletter = (e: FormEvent) => {
+  const submitNewsletter = async (e: FormEvent) => {
     e.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast.error("Enter a valid email address."); return; }
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: email.trim().toLowerCase() });
+    if (error && error.code !== "23505") { toast.error("We could not save your subscription. Please try again."); return; }
     setSubscribed(true);
     toast.success("You're on the list. Welcome to ISHTILE.");
   };
