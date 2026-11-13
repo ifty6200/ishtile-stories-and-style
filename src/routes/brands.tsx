@@ -42,6 +42,7 @@ function BrandsPage() {
     });
     panels.slice(1).forEach((panel, index) => {
       const previous = panels[index];
+      if (!previous) return;
       timeline.to(previous, { autoAlpha: 0, duration: 1, ease: "none" }, index);
       timeline.fromTo(panel, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1, ease: "none" }, index);
       timeline.fromTo(panel.querySelector(".brand-gallery-copy"), { y: 34 }, { y: 0, duration: 1, ease: "none" }, index);
