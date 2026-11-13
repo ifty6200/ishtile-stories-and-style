@@ -52,8 +52,10 @@ function BrandPager({ slug }: { slug: string }) {
  if (index < 0) return null;
  const previous = brandOrder[(index - 1 + brandOrder.length) % brandOrder.length];
  const next = brandOrder[(index + 1) % brandOrder.length];
+ if (!previous || !next) return null;
  const previousBrand = brands[previous];
  const nextBrand = brands[next];
+ if (!previousBrand || !nextBrand) return null;
  return <nav className="brand-pager" aria-label="Browse other brands">
   <Link to="/discover/$type/$slug" params={{type:"brand",slug:previous}} className="brand-pager-link brand-pager-previous"><span>PREVIOUS BRAND</span><strong>← {previousBrand.name}</strong></Link>
   <Link to="/brands" className="brand-pager-all">ALL BRANDS <ArrowUpRight size={15}/></Link>
