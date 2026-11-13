@@ -26,9 +26,9 @@ const photo = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit
 
 function BrandsPage() {
   const root = useRef<HTMLElement>(null);
-  const { contextSafe } = useGSAP(() => {
+  useGSAP(() => {
     const panels = gsap.utils.toArray<HTMLElement>(".brand-gallery-slide", root.current);
-    if (panels.length < 2) return;
+    if (panels.length < 2 || window.matchMedia("(max-width: 760px)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.set(panels.slice(1), { autoAlpha: 0 });
     const timeline = gsap.timeline({
       scrollTrigger: {
