@@ -20,6 +20,7 @@ const brands:Record<string,{name:string;note:string;story:string}> = {
   pilgrim:{name:"PILGRIM",note:"Made to move forward.",story:"PILGRIM approaches footwear and movement with a contemporary outlook, creating pieces for days that do not stand still."},
   essentials:{name:"ISHTILE Essentials",note:"The everyday, considered.",story:"A considered edit of everyday staples: familiar forms, easy styling and details that make them feel like your own."},
 };
+const brandOrder = ["onen", "farak", "mocha", "pilgrim", "essentials"];
 const collections:Record<string,{name:string;copy:string}> = {
   "summer-essentials-25":{name:"Summer Essentials '25",copy:"Light layers, everyday staples and easy pieces selected for warmer days."},
   "new-arrivals":{name:"New Arrivals",copy:"Fresh perspectives and the latest pieces to enter the ISHTILE universe."},
@@ -40,7 +41,22 @@ function DiscoverPage(){
  const title=brand?.name||collection?.name||story?.title||(category?category.charAt(0).toUpperCase()+category.slice(1):key.replace(/-/g," "));
  const copy=brand?.story||collection?.copy||story?.copy||(category?"Explore the "+category+" edit from across the ISHTILE universe.":"Discover more from ISHTILE: independent labels, considered products and contemporary culture.");
  const items=products.filter(p=>brand?p.brand.toLowerCase().includes(key==="essentials"?"essentials":key):category?p.category===category:collection?true:story?false:true);
- return <main className="discover-page"><div className="discover-hero"><div className="discover-hero-copy"><span className="eyebrow">THE ISHTILE UNIVERSE / {type.toUpperCase()}</span><h1>{title}<i>.</i></h1><p>{brand?.note||story?.category||"DISCOVER BEYOND LABELS"}</p><div className="discover-description">{copy}</div><Link to="/"><ArrowLeft size={15}/> BACK TO THE UNIVERSE</Link></div><div className="discover-hero-image"><img src={image(brand? "photo-1529139574466-a303027c1d8b":collection?"photo-1539109136881-3be0616acf4b":story?"photo-1509631179647-0177331693ae":"photo-1515886657613-9f3515b0c78f")} alt={title}/></div></div>
+ return <main className="discover-page"><div className={brand ? "discover-hero discover-brand-hero" : "discover-hero"}><div className="discover-hero-copy"><span className="eyebrow">THE ISHTILE UNIVERSE / {type.toUpperCase()}</span><h1>{title}<i>.</i></h1><p>{brand?.note||story?.category||"DISCOVER BEYOND LABELS"}</p><div className="discover-description">{copy}</div><Link to="/"><ArrowLeft size={15}/> BACK TO THE UNIVERSE</Link></div><div className="discover-hero-image"><img src={image(brand? "photo-1529139574466-a303027c1d8b":collection?"photo-1539109136881-3be0616acf4b":story?"photo-1509631179647-0177331693ae":"photo-1515886657613-9f3515b0c78f")} alt={title}/></div></div>
  {story?<article className="story-content"><span className="eyebrow">{story.category} / ISHTILE JOURNAL</span><h2>{story.title}</h2><p>{story.copy}</p><p>At ISHTILE, we believe style is personal. The most interesting ideas come from the way people interpret, combine and make pieces their own. This is a space for those perspectives.</p><Link to="/">EXPLORE THE STORE <ArrowRight size={15}/></Link></article>:<section className="discover-products"><div className="section-heading"><div><p className="eyebrow">A CURATED SELECTION</p><h2>{brand?"Explore "+brand.name:collection?"Inside the collection": "Explore the edit"}<i>.</i></h2></div><span className="eyebrow">{items.length} PIECES</span></div><div className="discover-product-grid">{items.map(p=><Link key={p.id} to="/products/$slug" params={{slug:p.id}} className="discover-product-card"><div><img src={image(p.image)} alt={p.name}/><span>VIEW PIECE <ArrowUpRight size={14}/></span></div><small>{p.brand}</small><h3>{p.name}</h3><b>{money(p.price)}</b></Link>)}</div>{items.length===0&&<p className="discover-empty">More pieces are being added to this edit. Explore the full store in the meantime.</p>}</section>}
+ {brand&&<BrandPager slug={key}/>}
  </main>;
+}
+
+function BrandPager({ slug }: { slug: string }) {
+ const index = brandOrder.indexOf(slug);
+ if (index < 0) return null;
+ const previous = brandOrder[(index - 1 + brandOrder.length) % brandOrder.length];
+ const next = brandOrder[(index + 1) % brandOrder.length];
+ const previousBrand = brands[previous];
+ const nextBrand = brands[next];
+ return <nav className="brand-pager" aria-label="Browse other brands">
+  <Link to="/discover/$type/$slug" params={{type:"brand",slug:previous}} className="brand-pager-link brand-pager-previous"><span>PREVIOUS BRAND</span><strong>← {previousBrand.name}</strong></Link>
+  <Link to="/brands" className="brand-pager-all">ALL BRANDS <ArrowUpRight size={15}/></Link>
+  <Link to="/discover/$type/$slug" params={{type:"brand",slug:next}} className="brand-pager-link brand-pager-next"><span>NEXT BRAND</span><strong>{nextBrand.name} →</strong></Link>
+ </nav>;
 }
