@@ -45,7 +45,7 @@ function CollectionPage() {
       <span className="collection-lime-scribble" aria-hidden="true">〰〰〰</span>
     </section>
     <section className="collection-tiles" aria-label="Explore collections">
-      {tiles.map((tile,i)=><Link key={tile.kind} to={tile.href} className={`collection-tile collection-${tile.kind}`} aria-label={tile.aria}>
+      {tiles.map((tile,i)=><Link key={tile.kind} to="/shop" className={`collection-tile collection-${tile.kind}`} aria-label={tile.aria}>
         {(tile.kind==="women"||tile.kind==="men")&&<span className="collection-image" aria-hidden="true"/>}
         {tile.title&&<span className="collection-tile-title">{tile.title}</span>}
         <span className="collection-tile-star" aria-hidden="true">✦</span>
