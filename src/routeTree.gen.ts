@@ -10,65 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrandsRouteImport } from './routes/brands'
+import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as EditorialRouteImport } from './routes/editorial'
-import { Route as ProductRouteImport } from './routes/products.$slug'
-import { Route as DiscoverRouteImport } from './routes/discover.$type.$slug'
-
-const EditorialRoute = EditorialRouteImport.update({
-  id: '/editorial',
-  path: '/editorial',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const DiscoverRoute = DiscoverRouteImport.update({
-  id: '/discover/$type/$slug',
-  path: '/discover/$type/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const ProductRoute = ProductRouteImport.update({
-  id: '/products/$slug',
-  path: '/products/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as DiscoverTypeSlugRouteImport } from './routes/discover.$type.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrandsRoute = BrandsRouteImport.update({
+  id: '/brands',
+  path: '/brands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionRoute = CollectionRouteImport.update({
+  id: '/collection',
+  path: '/collection',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EditorialRoute = EditorialRouteImport.update({
+  id: '/editorial',
+  path: '/editorial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoverTypeSlugRoute = DiscoverTypeSlugRouteImport.update({
+  id: '/discover/$type/$slug',
+  path: '/discover/$type/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/products/$slug': typeof ProductRoute
+  '/brands': typeof BrandsRoute
+  '/collection': typeof CollectionRoute
   '/editorial': typeof EditorialRoute
-  '/discover/$type/$slug': typeof DiscoverRoute
+  '/shop': typeof ShopRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/discover/$type/$slug': typeof DiscoverTypeSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/products/$slug': typeof ProductRoute
+  '/brands': typeof BrandsRoute
+  '/collection': typeof CollectionRoute
   '/editorial': typeof EditorialRoute
+  '/shop': typeof ShopRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/discover/$type/$slug': typeof DiscoverTypeSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/products/$slug': typeof ProductRoute
+  '/brands': typeof BrandsRoute
+  '/collection': typeof CollectionRoute
   '/editorial': typeof EditorialRoute
-  '/discover/$type/$slug': typeof DiscoverRoute
+  '/shop': typeof ShopRoute
+  '/products/$slug': typeof ProductsSlugRoute
+  '/discover/$type/$slug': typeof DiscoverTypeSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/products/$slug' | '/editorial' | '/discover/$type/$slug'
+  fullPaths:
+    | '/'
+    | '/brands'
+    | '/collection'
+    | '/editorial'
+    | '/shop'
+    | '/products/$slug'
+    | '/discover/$type/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/products/$slug' | '/editorial' | '/discover/$type/$slug'
-  id: '__root__' | '/' | '/products/$slug' | '/editorial' | '/discover/$type/$slug'
+  to:
+    | '/'
+    | '/brands'
+    | '/collection'
+    | '/editorial'
+    | '/shop'
+    | '/products/$slug'
+    | '/discover/$type/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/brands'
+    | '/collection'
+    | '/editorial'
+    | '/shop'
+    | '/products/$slug'
+    | '/discover/$type/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ProductRoute: typeof ProductRoute
+  BrandsRoute: typeof BrandsRoute
+  CollectionRoute: typeof CollectionRoute
   EditorialRoute: typeof EditorialRoute
-  DiscoverRoute: typeof DiscoverRoute
+  ShopRoute: typeof ShopRoute
+  ProductsSlugRoute: typeof ProductsSlugRoute
+  DiscoverTypeSlugRoute: typeof DiscoverTypeSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -80,6 +130,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brands': {
+      id: '/brands'
+      path: '/brands'
+      fullPath: '/brands'
+      preLoaderRoute: typeof BrandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collection': {
+      id: '/collection'
+      path: '/collection'
+      fullPath: '/collection'
+      preLoaderRoute: typeof CollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/editorial': {
       id: '/editorial'
       path: '/editorial'
@@ -87,18 +151,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditorialRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$slug': {
       id: '/products/$slug'
       path: '/products/$slug'
       fullPath: '/products/$slug'
-      preLoaderRoute: typeof ProductRouteImport
+      preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/discover/$type/$slug': {
       id: '/discover/$type/$slug'
       path: '/discover/$type/$slug'
       fullPath: '/discover/$type/$slug'
-      preLoaderRoute: typeof DiscoverRouteImport
+      preLoaderRoute: typeof DiscoverTypeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -106,9 +177,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ProductRoute: ProductRoute,
+  BrandsRoute: BrandsRoute,
+  CollectionRoute: CollectionRoute,
   EditorialRoute: EditorialRoute,
-  DiscoverRoute: DiscoverRoute,
+  ShopRoute: ShopRoute,
+  ProductsSlugRoute: ProductsSlugRoute,
+  DiscoverTypeSlugRoute: DiscoverTypeSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
