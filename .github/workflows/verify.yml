@@ -44,6 +44,9 @@ jobs:
       - name: Production build
         run: bun run build
 
+      - name: TypeScript typecheck
+        run: bunx tsc --noEmit
+
       - name: Format the GSAP integration
         run: bunx prettier --write src/components/storefront/motion-shell.tsx src/components/storefront/app-shell.tsx
 
