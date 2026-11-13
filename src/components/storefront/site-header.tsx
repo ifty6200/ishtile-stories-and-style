@@ -9,7 +9,7 @@ export function SiteHeader({ onCartClick }: { onCartClick:()=>void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const links = [
     { label: "Shop", href: "/shop" },
-    { label: "Brands", href: "/#brands" },
+    { label: "Brands", href: "/brands" },
     { label: "Editorial", href: "/editorial" },
     { label: "Collection", href: "/collection" },
     { label: "About", href: "/#about" },
