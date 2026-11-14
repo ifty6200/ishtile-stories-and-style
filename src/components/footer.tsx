@@ -65,7 +65,7 @@ export function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   return (
     <footer className="site-footer text-cream">
-      <div className="site-width relative z-10 pt-40 sm:pt-56">
+      <div className="site-width relative z-10 pt-14 sm:pt-18">
         <div className="grid gap-8 pb-12 md:grid-cols-[1.3fr_.75fr_.75fr_1.5fr] md:gap-10 lg:gap-16">
           <div>
             <Link href="/" aria-label="ISHTILE home">
