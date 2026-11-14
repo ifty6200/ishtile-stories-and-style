@@ -185,6 +185,18 @@
     object-fit: cover;
     object-position: 55% 50%;
   }
+  .hero::before {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    left: -4%;
+    bottom: -1px;
+    width: 108%;
+    height: 26px;
+    background: var(--color-cream);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    pointer-events: none;
+  }
   .hero::after {
     content: '';
     position: absolute;
@@ -346,7 +358,7 @@
   }
   .footer-wordmark {
     position: relative;
-    height: clamp(110px, 18vw, 290px);
+    height: clamp(56px, 7vw, 88px);
     background: url('/images/footer-wordmark.jpg') center bottom / 100% auto no-repeat;
   }
   .cart-dialog {
@@ -438,14 +450,15 @@
       width: calc(100% - 36px);
     }
     .hero {
-      min-height: 590px;
+      min-height: min(760px, calc(100svh - 68px));
+      height: max(590px, calc(100svh - 68px));
       display: flex;
       align-items: flex-end;
     }
     .hero-art {
-      width: 150%;
+      width: 145%;
       height: 100%;
-      right: -33%;
+      right: -29%;
     }
     .hero-art img {
       object-position: 50% 50%;
@@ -454,8 +467,8 @@
       background: linear-gradient(0deg, #11130ff5, #11130f65 50%, transparent 80%);
     }
     .hero-content {
-      padding-top: 230px;
-      padding-bottom: 65px;
+      padding-top: 210px;
+      padding-bottom: 70px;
     }
     .hero h1 {
       font-size: clamp(54px, 14vw, 76px);
@@ -491,7 +504,7 @@
       min-height: 270px;
     }
     .site-footer {
-      background-size: auto 640px;
+      background-size: auto 420px;
     }
     .brand-hero::after {
       right: -250px;
@@ -612,13 +625,14 @@
 }
 .collection-header .nav-link::after { background: #d0f900; }
 .collection-header .icon-button { color: #f3eadb; }
-.collection-hero {
+ .collection-hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
-  min-height: min(690px, 72vw);
-  height: min(690px, 72vw);
+  min-height: max(620px, calc(100svh - 80px));
+  height: calc(100svh - 80px);
+  max-height: 980px;
   overflow: hidden;
   background: #11120f;
   color: #f3eadb;
@@ -739,7 +753,7 @@
 .collection-card-dark .collection-tile-star { color: #f3eadb; }
 .collection-image-texture { filter: saturate(.65); }
 @media (max-width: 767px) {
-  .collection-hero { height: 76svh; min-height: 570px; max-height: 760px; }
+  .collection-hero { height: calc(100svh - 68px); min-height: 570px; max-height: 900px; }
   .collection-hero-image { object-position: 60% center; }
   .collection-hero-shade { background: linear-gradient(0deg, #080908f0 0%, #080908a8 43%, #08090818 100%); }
   .collection-hero-content { width: calc(100% - 40px); padding-top: 210px; align-self: flex-end; padding-bottom: 54px; }
