@@ -1,37 +1,56 @@
-# Ishtile Stories And Style
+# ISHTILE Marketplace
 
-Implement exactly the screenshot and nothing else
+A frontend-first, multi-brand fashion marketplace built with **Next.js 16 App Router**, **React 19**, **TypeScript**, and **Tailwind CSS 4**.
 
-This project was built with [Lovable](https://lovable.dev).
+- **Live preview:** https://ishtile-storefront.vercel.app
+- **Repository:** https://github.com/ismail-hossain73/ishtile-marketplace
+- **Status:** Frontend prototype with sample data; backend integration is planned.
 
-**Live app**: https://ishtile-stories-and-style.lovable.app
+## Run
 
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/8642c494-4152-4605-ad68-5515c6f7dd3e).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
+npm install
 npm run dev
 ```
 
+Open http://localhost:3000. Node.js 20.9 or newer is required.
 
-## Motion system
+```bash
+npm run build       # production build
+npm start           # serve the production build
+npm run typecheck   # TypeScript check
+npm run test:e2e    # desktop + mobile Chromium tests
+```
 
-ISHTILE uses GSAP and `@gsap/react` for restrained editorial motion across all routes. The shared `MotionShell` registers ScrollTrigger once, scopes animations to the active route, and reverts timelines and triggers when the route changes or the component unmounts.
+Before the first browser-test run, install Chromium with `npx playwright install chromium`. Tests start a development server on port 3100 automatically.
 
-- Add a meaningful selector to `revealTargets` in `src/components/storefront/motion-shell.tsx` to opt a component into a scroll reveal.
-- Keep reveals on component boundaries (cards, hero panels, section introductions), not every text node.
-- Existing CSS hover and focus states remain lightweight; GSAP handles scroll reveals and entrance motion.
-- The system respects `prefers-reduced-motion: reduce`; decorative motion is skipped and content remains visible.
-- Mobile reveals use shorter travel distances, while hover motion is only enabled on devices with a fine pointer.
+## Included
+
+- Responsive homepage following the desktop/mobile references in `design/`.
+- Searchable, category-filtered brand directory at `/brands`.
+- Dedicated brand storefronts at `/brands/[slug]`, showing only that brand’s products.
+- Shop search, category/brand/price filters, and sorting.
+- Product detail pages with size selection, size guide, and related products.
+- Wishlist and shopping-bag drawer, persisted locally in the current browser.
+- About, editorial index, individual stories, and a custom 404 page.
+- Keyboard-accessible controls, native modal focus handling, reduced-motion support.
+
+## Design and assets
+
+Cream/black/acid-lime palette, large italic hero typography, texture, collage imagery, and the ISHTILE wordmark are based on the supplied references. Images in `public/images/` were extracted from those references for this prototype, so some product images are low resolution. Replace them with original product photography before launch. The seasonal tiles reuse the supplied campaign artwork.
+
+The typography guide specifies **Suisse Int’l**. Licensed font files were not included; the current fallback is Arial/Helvetica. Add licensed WOFF2 files and load them with `next/font/local` when available. No external image or font services are required to run the app.
+
+## Data and backend boundary
+
+`src/lib/catalog.ts` contains **illustrative** brands, products, prices (BDT), and descriptions. `src/lib/editorial.ts` contains sample editorial copy. Replace these with an API/database in a later phase. Product images are reused across some sample brand listings.
+
+There is **no backend, authentication, real inventory, checkout, payment processing, or email subscription service**. The bag and wishlist are local-browser previews, not real orders. The newsletter form explicitly indicates that no email is submitted or stored. Product measurements and shipping details are placeholders, not final brand policies.
+
+Useful integration points:
+
+- `src/lib/catalog.ts`: brand/product data types and sample records.
+- `src/components/store-provider.tsx`: cart and wishlist state, local persistence.
+- `src/components/catalog.tsx`: search/filter/sort UI.
+- `src/app/brands/[slug]/page.tsx`: individual brand storefronts.
+- `src/app/products/[slug]/page.tsx`: product detail route.
