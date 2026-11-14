@@ -509,4 +509,91 @@
       animation: none !important;
     }
   }
+
+  .collection-intro {
+    min-height: 330px;
+    isolation: isolate;
+  }
+  .collection-intro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, #f3eadb 0%, #f3eadbdb 48%, #f3eadb20 100%),
+      url('/images/texture.jpg') center / cover;
+    opacity: 0.72;
+  }
+  .collection-intro-mark {
+    position: absolute;
+    right: 5%;
+    top: 4%;
+    color: #a2b52e;
+    font-size: clamp(100px, 20vw, 260px);
+    line-height: 1;
+    transform: rotate(12deg);
+  }
+  .collection-card {
+    position: relative;
+    display: block;
+    isolation: isolate;
+    min-height: clamp(310px, 38vw, 510px);
+    overflow: hidden;
+    border-radius: 5px;
+    background: #171715;
+    color: var(--color-cream);
+  }
+  .collection-card-shade {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(0deg, #10120edb 0%, #10120e45 48%, #10120e10 100%);
+    transition: opacity 0.3s;
+  }
+  .collection-card-number,
+  .collection-card-arrow {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+  }
+  .collection-card-number { left: 22px; }
+  .collection-card-arrow { right: 22px; }
+  .collection-card-copy {
+    position: absolute;
+    z-index: 1;
+    left: clamp(22px, 4vw, 42px);
+    right: 24px;
+    bottom: clamp(24px, 4vw, 42px);
+    max-width: 440px;
+  }
+  .collection-card-star {
+    position: absolute;
+    z-index: 1;
+    right: 22px;
+    bottom: 12px;
+    font-size: 42px;
+    color: var(--color-lime);
+    transition: transform 0.4s;
+  }
+  .collection-card-lime { color: #171715; background: #d0f900; }
+  .collection-card-lime .collection-card-shade {
+    background: linear-gradient(0deg, #d0f900ef 0%, #d0f9002b 100%);
+  }
+  .collection-card-lime .collection-card-star { color: #171715; }
+  .collection-card-light { color: #171715; }
+  .collection-card-light .collection-card-shade {
+    background: linear-gradient(0deg, #f3eadbe8 0%, #f3eadb15 85%);
+  }
+  .collection-card-light .collection-card-star { color: #171715; }
+  .collection-card-dark .collection-card-shade {
+    background: linear-gradient(0deg, #10120eef 0%, #10120e35 100%);
+  }
+  .collection-card:hover .collection-card-star { transform: rotate(45deg) scale(1.12); }
+  @media (max-width: 639px) {
+    .collection-intro { min-height: 280px; padding-block: 48px; }
+    .collection-card { min-height: 390px; }
+    .collection-card-copy { left: 22px; bottom: 30px; }
+  }
+
 }
