@@ -8,14 +8,16 @@
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build:dev": "next build"
   },
   "dependencies": {
     "gsap": "^3.15.1",
     "lucide-react": "^0.468.0",
     "next": "^16.0.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@supabase/supabase-js": "^2.57.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.1",
