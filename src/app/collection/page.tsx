@@ -4,101 +4,112 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { ServiceStrip } from '@/components/footer';
 
-export const metadata: Metadata = { title: 'Collections' };
+export const metadata: Metadata = {
+  title: 'The Collection',
+  description: 'Explore the curated ISHTILE collection: seasonal edits, new arrivals, urban archives and limited drops.',
+};
 
 const collections = [
   {
     number: '01',
-    title: 'Spring / In Bloom',
-    description: 'Light layers and fresh perspectives for the season ahead.',
-    image: '/images/spring.jpg',
-    href: '/shop?sort=newest',
-    tone: 'collection-card-light',
-  },
-  {
-    number: '02',
-    title: 'Summer Essentials',
-    description: 'Easy pieces, considered silhouettes, everyday comfort.',
+    title: <>Summer<br />Essentials<br />’25</>,
     image: '/images/summer.jpg',
     href: '/shop?category=T-shirts',
     tone: 'collection-card-lime',
+    imageClass: 'collection-image-muted',
+  },
+  {
+    number: '02',
+    title: <>New<br />Arrivals</>,
+    image: '/images/portrait.jpg',
+    href: '/shop?sort=newest',
+    tone: 'collection-card-photo',
+    imageClass: 'collection-image-mono',
   },
   {
     number: '03',
-    title: 'Festive Edit',
-    description: 'A contemporary take on pieces made for getting together.',
-    image: '/images/festive.jpg',
-    href: '/brands/roots',
-    tone: 'collection-card-dark',
+    title: <>New<br />Arrivals</>,
+    image: '/images/monsoon.jpg',
+    href: '/shop?sort=newest',
+    tone: 'collection-card-blue',
+    imageClass: 'collection-image-texture',
   },
   {
     number: '04',
-    title: 'Monsoon Layers',
-    description: 'Functional layers for changing skies and moving days.',
-    image: '/images/monsoon.jpg',
+    title: <>Urban<br />Archives</>,
+    image: '/images/spring.jpg',
     href: '/shop?category=Layers',
-    tone: 'collection-card-light',
+    tone: 'collection-card-violet',
+    imageClass: 'collection-image-texture',
+  },
+  {
+    number: '05',
+    title: <>Urban<br />Archives</>,
+    image: '/images/portrait.jpg',
+    href: '/shop?category=Layers',
+    tone: 'collection-card-photo',
+    imageClass: 'collection-image-mono',
+  },
+  {
+    number: '06',
+    title: <>Limited<br />Drops</>,
+    image: '/images/festive.jpg',
+    href: '/shop?sort=newest',
+    tone: 'collection-card-dark',
+    imageClass: 'collection-image-muted',
   },
 ];
 
 export default function CollectionsPage() {
   return (
     <>
-      <main className="site-width pb-16">
-        <div className="breadcrumb pt-8">
-          <Link href="/">Home</Link>
-          <span>/</span>
-          <span>Collections</span>
+      <section className="collection-hero" aria-labelledby="collection-title">
+        <Image
+          src="/images/hero.jpg"
+          alt="ISHTILE monochrome editorial fashion campaign"
+          fill
+          priority
+          sizes="100vw"
+          className="collection-hero-image"
+        />
+        <div className="collection-hero-shade" />
+        <div className="collection-hero-content">
+          <p className="eyebrow text-cream/65">ISHTILE / CURATED EDIT</p>
+          <h1 id="collection-title">The<br />Collection<span>.</span></h1>
+          <p className="collection-hero-description">
+            Explore our curated<br className="hidden sm:block" /> selection of brands and<br className="hidden sm:block" /> collections.
+          </p>
+          <Link href="/shop" className="collection-browse-link">
+            Browse All <ArrowUpRight size={20} />
+          </Link>
         </div>
-        <section className="collection-intro relative overflow-hidden py-14 sm:py-22">
-          <div className="relative z-10 max-w-3xl">
-            <p className="eyebrow mb-5 text-ink/50">ISHTILE / CURATED EDIT</p>
-            <h1 className="page-heading">
-              The Collection<span className="text-[#a2b52e]">.</span>
-            </h1>
-            <p className="mt-6 max-w-lg text-sm leading-relaxed text-ink/65 sm:text-base">
-              A changing selection of ideas, moods and pieces. Explore the edits
-              that bring our independent labels together.
-            </p>
-            <Link href="/shop" className="text-link mt-7 inline-flex">
-              Browse all <ArrowUpRight size={17} />
-            </Link>
-          </div>
-          <span aria-hidden="true" className="collection-intro-mark">✦</span>
-        </section>
-        <section aria-label="Curated collections" className="grid gap-4 sm:grid-cols-2">
+        <span className="collection-hero-scribble" aria-hidden="true">〰</span>
+      </section>
+
+      <main className="collection-main" aria-label="Curated collections">
+        <div className="collection-grid">
           {collections.map((collection) => (
             <Link
               key={collection.number}
               href={collection.href}
-              className={`collection-card group ${collection.tone}`}
+              className={`collection-tile ${collection.tone}`}
+              aria-label={`${collection.number} — explore collection`}
             >
               <Image
                 src={collection.image}
                 alt=""
                 fill
-                sizes="(max-width: 640px) 100vw, 50vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-[1.035]"
+                sizes="(max-width: 640px) 50vw, 33vw"
+                className={`collection-tile-image ${collection.imageClass}`}
               />
-              <span className="collection-card-shade" />
-              <span className="collection-card-number">{collection.number}</span>
-              <span className="collection-card-arrow"><ArrowUpRight size={22} /></span>
-              <span className="collection-card-copy">
-                <span className="eyebrow mb-3 block">{collection.number} / CURATED EDIT</span>
-                <span className="block text-3xl font-semibold leading-[.98] tracking-[-.055em] sm:text-4xl">
-                  {collection.title}
-                </span>
-                <span className="mt-3 block max-w-xs text-sm leading-relaxed opacity-75">
-                  {collection.description}
-                </span>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm underline underline-offset-4">
-                  Explore collection <ArrowUpRight size={16} />
-                </span>
-              </span>
-              <span aria-hidden="true" className="collection-card-star">✦</span>
+              <span className="collection-tile-overlay" />
+              <span className="collection-tile-number">{collection.number}</span>
+              <ArrowUpRight className="collection-tile-arrow" size={23} strokeWidth={1.6} />
+              <span className="collection-tile-title">{collection.title}</span>
+              <span className="collection-tile-star" aria-hidden="true">✦</span>
             </Link>
           ))}
-        </section>
+        </div>
       </main>
       <ServiceStrip />
     </>
