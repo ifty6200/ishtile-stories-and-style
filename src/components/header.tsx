@@ -11,6 +11,7 @@ const links = [
   { href: '/shop', label: 'Shop' },
   { href: '/brands', label: 'Brands' },
   { href: '/editorial', label: 'Editorial' },
+  { href: '/collection', label: 'Collection' },
   { href: '/about', label: 'About' },
 ];
 export function Header() {
