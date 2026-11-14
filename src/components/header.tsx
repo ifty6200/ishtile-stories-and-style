@@ -18,6 +18,7 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const home = pathname === '/';
+  const collectionPage = pathname === '/collection';
   const { cart, setCartOpen, wishlist } = useStore();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -27,14 +28,14 @@ export function Header() {
     setSearchOpen(false);
   }, [pathname]);
   return (
-    <header className={`site-header ${home ? 'header-dark' : ''}`}>
+    <header className={`site-header ${home ? 'header-dark' : ''} ${collectionPage ? 'collection-header' : ''}`}>
       <div className="site-width flex h-20 items-center justify-between gap-4 max-sm:h-17">
         <Link href="/" aria-label="ISHTILE home" className="shrink-0">
           <Image
             src="/images/wordmark.png"
             width={164}
             height={37}
-            className={`w-35 sm:w-41 ${home ? 'brightness-0 invert' : ''}`}
+            className={`w-35 sm:w-41 ${home || collectionPage ? 'brightness-0 invert' : ''}`}
             alt="ISHTILE — Discover beyond labels"
             priority
           />
