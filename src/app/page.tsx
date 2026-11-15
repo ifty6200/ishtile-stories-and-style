@@ -145,7 +145,7 @@ export default function Home() {
             All brands <ArrowRight size={16} />
           </Link>
         </div>
-        <div className="grid auto-cols-[78%] grid-flow-col gap-4 overflow-x-auto pb-2 sm:auto-cols-auto sm:grid-flow-row sm:grid-cols-2 lg:grid-cols-4">
+        <div className="home-brand-rail grid auto-cols-[78%] grid-flow-col gap-3 overflow-x-auto overscroll-x-contain pb-3 sm:auto-cols-[32%] lg:auto-cols-[23%]">
           {brands.slice(0, 4).map((brand, index) => (
             <BrandCard key={brand.slug} brand={brand} index={index} />
           ))}
