@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Plus, Sparkle } from 'lucide-react';
 import { brands, products } from '@/lib/catalog';
 import { HomeHero } from '@/components/home-hero';
+import { EditorialRail } from '@/components/editorial-rail';
 import { ProductCard } from '@/components/product-card';
 import { BrandCard } from '@/components/brand-card';
 import { ServiceStrip } from '@/components/footer';
@@ -84,52 +85,7 @@ export default function Home() {
           Explore all products <ArrowRight size={16} />
         </Link>
       </section>
-      <div className="grid gap-3 px-3 md:grid-cols-[1.2fr_1fr]">
-        <Link
-          href="/editorial"
-          className="editorial-banner min-h-55 rounded p-7 sm:min-h-64 sm:p-10"
-        >
-          <div className="relative z-10">
-            <p className="eyebrow mb-4 text-cream/60">The ISHTILE journal</p>
-            <h2 className="text-4xl font-semibold tracking-[-.06em]">Editorial.</h2>
-            <p className="mt-2 max-w-45 text-sm leading-relaxed text-cream/75">
-              Fashion, culture and
-              <br />
-              everything in between.
-            </p>
-            <span className="text-link mt-6 underline underline-offset-4">
-              Explore the stories <ArrowUpRight size={16} />
-            </span>
-          </div>
-          <Sparkle className="absolute right-8 top-7 size-17 rotate-12 text-lime" strokeWidth={1} />
-        </Link>
-        <Link
-          href="/shop?category=T-shirts"
-          className="relative flex min-h-55 items-center overflow-hidden rounded bg-lime p-7 sm:p-10"
-        >
-          <div className="relative z-10">
-            <p className="eyebrow mb-4">Less effort. More expression.</p>
-            <h2 className="text-4xl font-semibold leading-none tracking-[-.06em]">
-              Everyday
-              <br />
-              essentials.
-            </h2>
-            <span className="text-link mt-6 underline underline-offset-4">
-              Find your favourites <ArrowRight size={16} />
-            </span>
-          </div>
-          <div className="absolute -right-10 bottom-0 top-0 w-3/5 rotate-[-9deg] mix-blend-multiply">
-            <Image
-              src="/images/essential-tee.jpg"
-              alt="Black signature essential tee"
-              fill
-              className="object-contain"
-              sizes="35vw"
-            />
-          </div>
-          <Plus className="absolute right-5 top-5" size={22} strokeWidth={1} />
-        </Link>
-      </div>
+      <EditorialRail />
       <section className="site-width py-14 sm:py-20" aria-labelledby="brands-title">
         <div className="mb-7 flex items-end justify-between gap-4">
           <div>
