@@ -208,18 +208,68 @@ export function Footer() {
             Back to top <ArrowUp size={14} />
           </a>
         </div>
-        <div className="footer-mobile-row" aria-label="ISHTILE social links">
-          <Link href="/" aria-label="ISHTILE home">
-            <Image src="/images/wordmark.png" width={168} height={38} alt="ISHTILE" />
-          </Link>
-          <div className="footer-mobile-socials">
-            <a href="https://www.instagram.com/ishtile.official/" aria-label="ISHTILE on Instagram" target="_blank" rel="noreferrer">
-              <Instagram size={20} strokeWidth={1.7} />
-            </a>
-            <Youtube size={20} strokeWidth={1.7} aria-hidden="true" />
-            <span aria-label="TikTok" className="footer-tiktok-mark">♪</span>
-            <Facebook size={19} strokeWidth={1.7} aria-hidden="true" />
+        <div className="footer-mobile-editorial md:hidden">
+          <div className="footer-mobile-brand">
+            <Link href="/" aria-label="ISHTILE home">
+              <Image src="/images/wordmark.png" width={210} height={48} alt="ISHTILE" />
+            </Link>
+            <Sparkle size={36} strokeWidth={1.1} className="footer-mobile-brand-star" aria-hidden="true" />
+            <p>Fashion, culture and beyond.<br />Explore. Discover. Belong.</p>
           </div>
+
+          <nav className="footer-mobile-accordions" aria-label="Footer navigation">
+            {[
+              { title: 'Shop', links: [{ href: '/shop', label: 'All products' }, { href: '/shop?sort=newest', label: 'New arrivals' }] },
+              { title: 'Brands', links: [...brands.slice(0, 4).map((brand) => ({ href: `/brands/${brand.slug}`, label: brand.name })), { href: '/brands', label: 'All brands' }] },
+              { title: 'Explore', links: [{ href: '/editorial', label: 'Editorial' }, { href: '/shop', label: 'Discover the collections' }] },
+              { title: 'About', links: [{ href: '/about', label: 'About ISHTILE' }] },
+            ].map((group) => (
+              <details key={group.title} className="footer-mobile-accordion">
+                <summary>
+                  <span>{group.title}</span>
+                  <Plus size={23} strokeWidth={1.2} />
+                </summary>
+                <div className="footer-mobile-accordion-links">
+                  {group.links.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+                </div>
+              </details>
+            ))}
+          </nav>
+
+          <section className="footer-mobile-community" aria-label="ISHTILE+ community">
+            <div className="footer-mobile-community-heading">
+              <Sparkle size={43} strokeWidth={1.1} aria-hidden="true" />
+              <div>
+                <h2>Join the ISHTILE+ Community</h2>
+                <p>Get updates on new drops, exclusive collections and more.</p>
+              </div>
+            </div>
+            <form className="footer-mobile-community-form" onSubmit={(event) => { event.preventDefault(); setSubscribed(true); }}>
+              <label htmlFor="footer-mobile-email" className="sr-only">Your email address</label>
+              <input id="footer-mobile-email" type="email" required placeholder="Your email address" disabled={subscribed} />
+              <button type="submit" disabled={subscribed} aria-label="Join community"><ArrowRight size={25} /></button>
+            </form>
+            <p className="footer-mobile-community-status" aria-live="polite">
+              {subscribed ? 'Thanks for your interest!' : 'Preview only. Email signup is not connected yet.'}
+            </p>
+          </section>
+
+          <div className="footer-mobile-socials" aria-label="ISHTILE social links">
+            <a href="https://www.instagram.com/ishtile.official/" aria-label="ISHTILE on Instagram" target="_blank" rel="noreferrer"><Instagram size={25} /></a>
+            <a href="https://www.youtube.com/" aria-label="YouTube" target="_blank" rel="noreferrer"><Youtube size={25} /></a>
+            <span aria-label="TikTok" className="footer-tiktok-mark">♪</span>
+            <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noreferrer"><Facebook size={25} /></a>
+          </div>
+
+          <div className="footer-mobile-legal">
+            <div>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/cookies">Cookies</Link>
+            </div>
+            <a href="#top" className="footer-mobile-back-top">Back to top <ArrowUp size={19} /></a>
+          </div>
+          <p className="footer-mobile-copyright">© {new Date().getFullYear()} ISHTILE+. All rights reserved.</p>
         </div>
       </div>
       <div className="footer-wordmark" aria-hidden="true" />
