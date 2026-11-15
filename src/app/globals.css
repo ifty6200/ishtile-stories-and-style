@@ -1122,7 +1122,7 @@
     min-height: 0;
     isolation: isolate;
     background-color: #0d0e0c;
-    background-image: url('/images/footer-background.svg');
+    background-image: url('/images/footer-background.webp');
     background-position: center top;
     background-repeat: no-repeat;
     background-size: 100% 100%;
