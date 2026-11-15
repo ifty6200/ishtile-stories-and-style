@@ -1120,12 +1120,19 @@
   .mobile-newsletter { display: none !important; }
   .site-footer {
     min-height: 0;
-    background: #0d0e0c url('/images/texture.jpg') center top / 100% auto repeat-y;
+    isolation: isolate;
+    background-color: #0d0e0c;
+    background-image: url('/images/footer-background.svg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     color: var(--color-cream);
   }
   .site-footer::before {
     display: block;
-    background: linear-gradient(180deg, #0d0e0c38 0%, #0d0e0ce8 220px, #0d0e0c 72%);
+    z-index: -1;
+    background: linear-gradient(180deg, #0d0e0c12 0%, #0d0e0c38 35%, #0d0e0c10 100%);
+    pointer-events: none;
   }
   .site-footer > .site-width {
     position: relative;
@@ -1135,15 +1142,7 @@
   }
   .site-footer .footer-content { display: none !important; }
   .site-footer .border-t { display: none !important; }
-  .site-footer .footer-wordmark {
-    display: block !important;
-    height: clamp(145px, 27vw, 225px);
-    margin-inline: -7.5vw;
-    background-image: url('/images/footer-wordmark.jpg');
-    background-position: center bottom;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-  }
+  .site-footer .footer-wordmark { display: none !important; }
   .footer-mobile-editorial { display: block; }
   .footer-mobile-brand {
     position: relative;
