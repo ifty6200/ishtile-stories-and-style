@@ -1,46 +1,32 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Plus, Sparkle } from 'lucide-react';
 import { brands, products } from '@/lib/catalog';
+import { HomeHero } from '@/components/home-hero';
 import { ProductCard } from '@/components/product-card';
 import { BrandCard } from '@/components/brand-card';
 import { ServiceStrip } from '@/components/footer';
 
+export const metadata: Metadata = {
+  title: 'ISHTILE+ — More Fashion. More You.',
+  description: 'Discover independent fashion labels, new arrivals, and everyday essentials at ISHTILE+.',
+  openGraph: {
+    title: 'ISHTILE+ — More Fashion. More You.',
+    description: 'Discover independent fashion labels, new arrivals, and everyday essentials at ISHTILE+.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ISHTILE+ — More Fashion. More You.',
+    description: 'Discover independent fashion labels, new arrivals, and everyday essentials at ISHTILE+.',
+  },
+};
+
 export default function Home() {
   return (
     <>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-art">
-          <Image
-            src="/images/hero.jpg"
-            alt="Expressive streetwear portrait with colourful collage artwork"
-            fill
-            priority
-            sizes="(max-width: 640px) 150vw, 75vw"
-          />
-        </div>
-        <Sparkle className="hero-star" strokeWidth={1.2} aria-hidden="true" />
-        <div className="site-width hero-content">
-          <p className="eyebrow text-cream/60">Independent labels. Unlimited expression.</p>
-          <h1 id="hero-title">
-            MORE
-            <br />
-            FASHION.
-            <br />
-            <span className="text-lime">MORE YOU.</span>
-          </h1>
-          <Link
-            href="/brands"
-            className="mt-8 inline-flex items-center gap-7 border-b border-lime/70 pb-2 text-sm sm:mt-10 sm:text-base"
-          >
-            Discover beyond labels <ArrowUpRight size={20} className="text-lime" />
-          </Link>
-        </div>
-        <div className="hero-bottom">
-          <span className="h-px w-10 bg-lime" />
-          <span>THE WORLD OF ISHTILE / 01</span>
-        </div>
-      </section>
+      <HomeHero />
       <nav className="campaign-track" aria-label="Shop collections">
         {[
           {

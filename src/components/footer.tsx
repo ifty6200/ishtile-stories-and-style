@@ -6,6 +6,8 @@ import {
   ArrowRight,
   ArrowUp,
   Instagram,
+  Youtube,
+  Facebook,
   Sparkle,
   Truck,
   ShieldCheck,
@@ -64,9 +66,41 @@ export function ServiceStrip() {
 export function Footer() {
   const [subscribed, setSubscribed] = useState(false);
   return (
-    <footer className="site-footer text-cream">
+    <>
+      <section className="mobile-newsletter" aria-label="Newsletter signup">
+        <div className="mobile-newsletter-inner">
+          <Sparkle className="mobile-newsletter-star" size={24} strokeWidth={1.2} aria-hidden="true" />
+          <div className="mobile-newsletter-copy">
+            <h2>Stay in the loop.</h2>
+            <p>Get the latest drops, stories and everything worth knowing.</p>
+          </div>
+          <form
+            className="mobile-newsletter-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              setSubscribed(true);
+            }}
+          >
+            <label htmlFor="mobile-newsletter-email" className="sr-only">Your email address</label>
+            <input
+              id="mobile-newsletter-email"
+              type="email"
+              required
+              placeholder="Your email address"
+              disabled={subscribed}
+            />
+            <button type="submit" disabled={subscribed} aria-label="Join community interest list">
+              <ArrowRight size={17} />
+            </button>
+          </form>
+        </div>
+        <p className="mobile-newsletter-status" aria-live="polite">
+          {subscribed ? 'Thanks for your interest!' : 'Preview only. Email signup is not connected yet.'}
+        </p>
+      </section>
+      <footer className="site-footer text-cream">
       <div className="site-width relative z-10 pt-14 sm:pt-18">
-        <div className="grid gap-8 pb-12 md:grid-cols-[1.3fr_.75fr_.75fr_1.5fr] md:gap-10 lg:gap-16">
+        <div className="footer-content grid gap-8 pb-12 md:grid-cols-[1.3fr_.75fr_.75fr_1.5fr] md:gap-10 lg:gap-16">
           <div>
             <Link href="/" aria-label="ISHTILE home">
               <Image
@@ -138,12 +172,12 @@ export function Footer() {
                 setSubscribed(true);
               }}
             >
-              <label htmlFor="newsletter" className="sr-only">
+              <label htmlFor="desktop-newsletter-email" className="sr-only">
                 Your email address
               </label>
               <div className="flex items-center rounded-full border border-cream/40 p-1">
                 <input
-                  id="newsletter"
+                  id="desktop-newsletter-email"
                   type="email"
                   required
                   placeholder="Your email address"
@@ -174,8 +208,22 @@ export function Footer() {
             Back to top <ArrowUp size={14} />
           </a>
         </div>
+        <div className="footer-mobile-row" aria-label="ISHTILE social links">
+          <Link href="/" aria-label="ISHTILE home">
+            <Image src="/images/wordmark.png" width={168} height={38} alt="ISHTILE" />
+          </Link>
+          <div className="footer-mobile-socials">
+            <a href="https://www.instagram.com/ishtile.official/" aria-label="ISHTILE on Instagram" target="_blank" rel="noreferrer">
+              <Instagram size={20} strokeWidth={1.7} />
+            </a>
+            <Youtube size={20} strokeWidth={1.7} aria-hidden="true" />
+            <span aria-label="TikTok" className="footer-tiktok-mark">♪</span>
+            <Facebook size={19} strokeWidth={1.7} aria-hidden="true" />
+          </div>
+        </div>
       </div>
       <div className="footer-wordmark" aria-hidden="true" />
-    </footer>
+      </footer>
+    </>
   );
 }

@@ -4,7 +4,12 @@ import { Sparkle } from 'lucide-react';
 import { BrandDirectory } from '@/components/brand-directory';
 import { ServiceStrip } from '@/components/footer';
 
-export const metadata: Metadata = { title: 'Our brands' };
+export const metadata: Metadata = {
+  title: 'Independent Fashion Brands',
+  description: 'Discover independent labels and the distinctive fashion stories behind them at ISHTILE+.',
+  openGraph: { title: 'Independent Fashion Brands | ISHTILE+', description: 'Discover independent labels and the distinctive fashion stories behind them at ISHTILE+.', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'Independent Fashion Brands | ISHTILE+', description: 'Discover independent labels and the distinctive fashion stories behind them at ISHTILE+.' },
+};
 export default function Brands() {
   return (
     <>

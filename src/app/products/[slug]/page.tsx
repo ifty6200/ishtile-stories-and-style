@@ -15,7 +15,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const product = products.find((p) => p.slug === slug);
-  return { title: product ? `${product.name} — ${brandName(product.brand)}` : 'Product not found' };
+  const title = product ? `${product.name} — ${brandName(product.brand)}` : 'Product not found';
+  const description = product
+    ? `Discover ${product.name} from ${brandName(product.brand)} at ISHTILE+.`
+    : 'Discover independent fashion at ISHTILE+.';
+  return {
+    title,
+    description,
+    openGraph: { title: `${title} | ISHTILE+`, description, type: 'website' },
+    twitter: { card: 'summary_large_image', title: `${title} | ISHTILE+`, description },
+  };
 }
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

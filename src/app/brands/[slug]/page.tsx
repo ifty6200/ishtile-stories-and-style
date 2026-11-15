@@ -18,7 +18,17 @@ export async function generateMetadata({
   const brand = brands.find((b) => b.slug === slug);
   return {
     title: brand ? `${brand.name} — ${brand.tagline}` : 'Brand not found',
-    description: brand?.description,
+    description: brand?.description ?? 'Discover independent fashion brands at ISHTILE+.',
+    openGraph: {
+      title: brand ? `${brand.name} | ISHTILE+` : 'Brand not found | ISHTILE+',
+      description: brand?.description ?? 'Discover independent fashion brands at ISHTILE+.',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: brand ? `${brand.name} | ISHTILE+` : 'Brand not found | ISHTILE+',
+      description: brand?.description ?? 'Discover independent fashion brands at ISHTILE+',
+    },
   };
 }
 export default async function BrandPage({ params }: { params: Promise<{ slug: string }> }) {

@@ -25,6 +25,35 @@ test('homepage renders without runtime errors or horizontal overflow', async ({
   expect(errors).toEqual([]);
 });
 
+test('homepage campaign controls advance, go back, and wrap', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.getByText('01 / 04')).toBeVisible();
+  await page.getByRole('button', { name: 'Next campaign image' }).click();
+  await expect(page.getByText('02 / 04')).toBeVisible();
+  await page.getByRole('button', { name: 'Previous campaign image' }).click();
+  await expect(page.getByText('01 / 04')).toBeVisible();
+  await page.getByRole('button', { name: 'Previous campaign image' }).click();
+  await expect(page.getByText('04 / 04')).toBeVisible();
+});
+
+test('collection gallery selects the requested edit and preserves Collection navigation', async ({ page }) => {
+  await page.goto('/collection');
+  await expect(page.getByRole('heading', { name: 'Summer Essentials ’25' })).toBeVisible();
+  await page.getByRole('button', { name: /02 New Arrivals/ }).click();
+  await expect(page.getByRole('heading', { name: 'New Arrivals' })).toBeVisible();
+  await expect(page.getByRole('button', { name: /02 New Arrivals/ })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  if ((await page.evaluate(() => window.innerWidth)) < 768) {
+    await page.getByRole('button', { name: 'Open menu' }).click();
+  }
+  await expect(page.getByRole('link', { name: 'Collection', exact: true })).toHaveAttribute(
+    'href',
+    '/collection',
+  );
+});
+
 test('brand directory filters and links to individual storefronts', async ({ page }) => {
   await page.goto('/brands');
   await expect(page.locator('main .brand-card')).toHaveCount(6);

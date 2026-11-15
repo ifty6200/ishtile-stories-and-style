@@ -14,7 +14,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  return { title: articles.find((a) => a.slug === slug)?.title ?? 'Story not found' };
+  const article = articles.find((item) => item.slug === slug);
+  const title = article?.title ?? 'Story not found';
+  const description = article?.description ?? 'Stories from the world of fashion and culture at ISHTILE+.';
+  return {
+    title,
+    description,
+    openGraph: { title: `${title} | ISHTILE+`, description, type: 'article' },
+    twitter: { card: 'summary_large_image', title: `${title} | ISHTILE+`, description },
+  };
 }
 export default async function Article({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

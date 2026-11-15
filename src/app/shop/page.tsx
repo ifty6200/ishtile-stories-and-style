@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { Catalog } from '@/components/catalog';
 import { products } from '@/lib/catalog';
 
-export const metadata: Metadata = { title: 'Shop all products' };
+export const metadata: Metadata = {
+  title: 'Shop Independent Fashion',
+  description: 'Shop everyday essentials and unexpected favourites from independent labels at ISHTILE+.',
+  openGraph: { title: 'Shop Independent Fashion | ISHTILE+', description: 'Shop everyday essentials and unexpected favourites from independent labels at ISHTILE+.', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'Shop Independent Fashion | ISHTILE+', description: 'Shop everyday essentials and unexpected favourites from independent labels at ISHTILE+.' },
+};
 export default async function Shop({
   searchParams,
 }: {

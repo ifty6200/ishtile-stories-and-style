@@ -4,7 +4,12 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { articles } from '@/lib/editorial';
 
-export const metadata: Metadata = { title: 'Editorial' };
+export const metadata: Metadata = {
+  title: 'Fashion & Culture Editorial',
+  description: 'Fashion, culture, and stories from the world of ISHTILE+.',
+  openGraph: { title: 'Fashion & Culture Editorial | ISHTILE+', description: 'Fashion, culture, and stories from the world of ISHTILE+.', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'Fashion & Culture Editorial | ISHTILE+', description: 'Fashion, culture, and stories from the world of ISHTILE+.' },
+};
 export default function Editorial() {
   return (
     <>

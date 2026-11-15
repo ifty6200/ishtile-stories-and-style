@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import { Wishlist } from '@/components/wishlist';
 
-export const metadata: Metadata = { title: 'Your wishlist' };
+export const metadata: Metadata = {
+  title: 'Your Wishlist',
+  description: 'Keep your favourite ISHTILE+ fashion pieces together in your wishlist.',
+  openGraph: { title: 'Your Wishlist | ISHTILE+', description: 'Keep your favourite ISHTILE+ fashion pieces together in your wishlist.', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'Your Wishlist | ISHTILE+', description: 'Keep your favourite ISHTILE+ fashion pieces together in your wishlist.' },
+};
 export default function WishlistPage() {
   return (
     <div className="site-width min-h-[65vh] py-14 sm:py-18">

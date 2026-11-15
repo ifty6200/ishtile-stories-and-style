@@ -4,7 +4,12 @@ import Image from 'next/image';
 import { ArrowUpRight, Sparkle } from 'lucide-react';
 import { ServiceStrip } from '@/components/footer';
 
-export const metadata: Metadata = { title: 'About us' };
+export const metadata: Metadata = {
+  title: 'About ISHTILE+',
+  description: 'Meet the independent fashion labels and stories in the ISHTILE universe.',
+  openGraph: { title: 'About ISHTILE+', description: 'Meet the independent fashion labels and stories in the ISHTILE universe.', type: 'website' },
+  twitter: { card: 'summary_large_image', title: 'About ISHTILE+', description: 'Meet the independent fashion labels and stories in the ISHTILE universe.' },
+};
 export default function About() {
   return (
     <>
