@@ -277,6 +277,10 @@
   .product-card:focus-within .product-view {
     transform: translateY(0);
   }
+  .home-brand-rail .brand-card {
+    min-height: 238px;
+    padding: 18px;
+  }
   .brand-card {
     position: relative;
     isolation: isolate;
